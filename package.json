@@ -17,6 +17,8 @@
     "url": "https://github.com/anvaka/reddata"
   },
   "dependencies": {
-    "byline": "^4.2.1"
+    "bluebird": "^2.9.34",
+    "byline": "^4.2.1",
+    "ioredis": "^1.6.1"
   }
 }

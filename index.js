@@ -8,11 +8,15 @@ if (!fileName) {
   process.exit(-1);
 }
 
-var fs = require('fs'),
-    byline = require('byline');
+var fs = require('fs');
+var byline = require('byline');
+var redisClient = require('./lib/redisClient.js')();
 
-var stream = fs.createReadStream(fileName, { encoding: 'utf8' });
+var stream = fs.createReadStream(fileName, {
+  encoding: 'utf8'
+});
 stream = byline.createStream(stream);
+var processedCount = 0;
 
 stream.on('data', function(line) {
   var authorMatch = line.match(/author":"(.+?)"/);
@@ -27,6 +31,17 @@ stream.on('data', function(line) {
   }
   var author = authorMatch[1];
   if (author !== '[deleted]') {
-    console.log(authorMatch[1], subMatch[1]);
+    processedCount += 1;
+    redisClient.addComment(author, subMatch[1]);
+    if ((processedCount % 50000) === 0) {
+      reportProgress();
+    }
   }
+}).on('end', function() {
+  reportProgress();
+  console.log('Done!');
 });
+
+function reportProgress() {
+  console.log('Processed', processedCount, 'records');
+}
