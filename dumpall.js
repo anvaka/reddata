@@ -43,15 +43,17 @@ function printIt(sub) {
 }
 
 process.on('SIGINT', function() {
+  saveGraph();
+  process.exit(0);
+});
+
+function saveGraph() {
   var saveTo = path.join(outFolder, 'recommended.ngraph');
   fs.writeFileSync(saveTo, tojson(graph));
   console.log('Graph saved to ' + saveTo);
   console.log('Edges: ' + graph.getLinksCount());
   console.log('Nodes: ' + graph.getNodesCount());
-
-  process.exit(0);
-});
-
+}
 
 function getCutPoint(subs) {
   var max = Math.min(subs.length, cutLimit);
