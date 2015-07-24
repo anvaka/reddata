@@ -19,6 +19,8 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "byline": "^4.2.1",
-    "ioredis": "^1.6.1"
+    "ioredis": "^1.6.1",
+    "ngraph.graph": "0.0.11",
+    "ngraph.tojson": "^0.1.3"
   }
 }
