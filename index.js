@@ -1,7 +1,9 @@
 // Reads reddit comments file https://archive.org/details/2015_reddit_comments_corpus
-// and emits:
-// user subreddit
-// strings
+// and pushes to redis database. Each record is assigned to two sets:
+//  s:[subreddit name] -> [user a, user b, user c]
+//  u:[user name] -> [subreddit x, subreddit y]
+//
+// I'm using two data sets to simplify subsequent recommendations constructions
 var fileName = process.argv[2];
 if (!fileName) {
   console.log('Pass file name as an argument');
