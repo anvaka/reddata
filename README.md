@@ -94,10 +94,6 @@ saturated with other popular subreddits:
 
 If you have an idea how to fix this please let me know :)
 
-## Next step 
-
-Provide web interface.
-
 # license
 
 MIT
